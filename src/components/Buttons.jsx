@@ -1,5 +1,6 @@
 import classNames from "classnames";
-const Buttons = ({ currentStep, onAdd, onDelete }) => {
+const Buttons = ({ currentStep, onAdd, onDelete, formIsValid }) => {
+  console.log("onAdd function", onAdd);
   const isPrevDisabled = currentStep === 1;
   const isNextDisabled = currentStep === 4;
   return (
@@ -21,13 +22,14 @@ const Buttons = ({ currentStep, onAdd, onDelete }) => {
       </button>
       <button
         id="next"
-        disabled={isNextDisabled}
+        type="button"
+        disabled={!formIsValid}
+        onClick={onAdd}
         className={classNames("rounded-full px-[40px] py-[20px] ", {
           " bg-primary": !isNextDisabled,
           "text-white": !isNextDisabled,
           invisible: isNextDisabled,
         })}
-        onClick={onAdd}
       >
         Next step
       </button>
