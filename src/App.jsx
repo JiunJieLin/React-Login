@@ -1,44 +1,110 @@
+import { useState } from "react";
 import ContactDetails from "./components/ContactDetails";
-import StepBar from "./components/StepBar";
+import OurService from "./components/OurServices";
+import Budget from "./components/Budget";
+import Summary from "./components/Summary";
+import ProgressBar from "./components/ProgressBar";
+import Buttons from "./components/Buttons";
 const App = () => {
+  const [currentActive, setCurrentActive] = useState(1);
+
+  const handleOnAdd = () => {
+    setCurrentActive((prev) => prev + 1);
+  };
+  const handleDelete = () => {
+    setCurrentActive((prev) => prev - 1);
+  };
+
   return (
     <div className="flex w-full items-center justify-center">
       <div className="b-[1px] m-auto flex flex-col items-center justify-between gap-[31px]">
         <div className="rounded-md pb-[80px]  pl-[46px] pr-[56px] shadow-md">
-          <div className="flex items-center justify-center gap-[134px] py-[33px] ">
-            <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-primary text-white">
-              1
-            </div>
-            <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#EFF0F6] text-[#6F6C90]">
-              2
-            </div>
-            <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#EFF0F6] text-[#6F6C90]">
-              3
-            </div>
-            <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#EFF0F6] text-[#6F6C90]">
-              4
-            </div>
-          </div>
+          <ProgressBar currentStep={currentActive} />
           <div className="h-[1px] w-[596px] bg-[#D9DBE9]"></div>
-          <ContactDetails />
+          {currentActive === 1 && <ContactDetails />}
+          {currentActive === 2 && <OurService />}
+          {currentActive === 3 && <Budget />}
+          {currentActive === 4 && <Summary />}
         </div>
-        <div className="flex w-full items-center justify-between">
-          <button
-            id="prev"
-            className="rounded-full border-[1px] border-solid border-primary px-[40px] py-[20px] text-primary"
-          >
-            Previous step
-          </button>
-          <button
-            id="next"
-            className=" rounded-full bg-primary px-[40px] py-[20px] text-white"
-          >
-            Next step
-          </button>
-        </div>
+        <Buttons
+          currentStep={currentActive}
+          onAdd={handleOnAdd}
+          onDelete={handleDelete}
+        />
       </div>
     </div>
   );
 };
 
 export default App;
+
+// let currentActive = 1;
+// next.addEventListener("click", () => {
+//   currentActive++;
+//   if (currentActive > circles.length) {
+//     currentActive = circles.length;
+//   }
+//   update();
+// });
+
+// prev.addEventListener("click", () => {
+//   currentActive--;
+//   if (currentActive < 1) {
+//     currentActive = 1;
+//   }
+//   update();
+// });
+// function update() {
+//   circles.forEach((circle, index) => {
+//     if (index < currentActive) {
+//       circle.classList.add("active");
+//     } else {
+//       circle.classList.remove("active");
+//     }
+//   });
+
+//   //中間的線變換顏色
+//   const actives = document.querySelectorAll(".active");
+//   progress.style.width =
+//     ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
+//   //當前進度２／５＝４０％
+//   //填色範圍(2-1)/(5-1)=25%
+//   if (currentActive === 1) {
+//     prev.disabled = true;
+//   } else if (currentActive === circles.length) {
+//     next.disabled = true;
+//   } else {
+//     prev.disabled = false;
+//     next.disabled = false;
+//   }
+// }
+
+// const App = () => {
+//   const [currentStep, setCurrentStep] = useState(1);
+
+//   const handleNext = () => {
+//     setCurrentStep((prevStep) => prevStep + 1);
+//   };
+
+//   const handlePrev = () => {
+//     setCurrentStep((prevStep) => prevStep - 1);
+//   };
+
+//   return (
+//     <div className="p-8">
+//       <ProgressBar
+//         currentStep={currentStep}
+//         onNext={handleNext}
+//         onPrev={handlePrev}
+//       />
+
+//       {/* Render your components based on the currentStep */}
+//       {currentStep === 1 && <div>Component 1 Content</div>}
+//       {currentStep === 2 && <div>Component 2 Content</div>}
+//       {currentStep === 3 && <div>Component 3 Content</div>}
+//       {currentStep === 4 && <div>Component 4 Content</div>}
+//     </div>
+//   );
+// };
+
+// export default App;
