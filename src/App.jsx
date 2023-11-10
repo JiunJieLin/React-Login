@@ -7,27 +7,30 @@ import ProgressBar from "./components/ProgressBar";
 import Buttons from "./components/Buttons";
 const App = () => {
   const [currentActive, setCurrentActive] = useState(1);
-  const [formIsValid, setFormIsValid] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(true);
 
   const handleOnAdd = () => {
-    const isValid =
-      enteredEmail.includes("@") && enteredPhone.trim().length === 10;
-    setFormIsValid(isValid);
-    if (isValid) {
-      console.log("handleOnAdd called");
-      setCurrentActive((prev) => prev + 1);
-    }
+    setCurrentActive((prev) => prev + 1);
+    // console.log("handleOnAdd called");
+    // const isValid =
+    //   enteredEmail.includes("@") && enteredPhone.trim().length === 10;
+    // setFormIsValid(isValid);
+    // if (isValid) {
+    //   setCurrentActive((prev) => prev + 1);
+    // }
   };
+
   const handleDelete = () => {
     setCurrentActive((prev) => prev - 1);
   };
+
   const handleLogin = (
     enteredName,
     enteredEmail,
     enteredPhone,
     enteredCompany
   ) => {
-    setCurrentActive((prev) => prev + 1);
+    // setCurrentActive((prev) => prev + 1);
     const personInfo = {
       name: enteredName,
       email: enteredEmail,
@@ -59,74 +62,3 @@ const App = () => {
 };
 
 export default App;
-
-// let currentActive = 1;
-// next.addEventListener("click", () => {
-//   currentActive++;
-//   if (currentActive > circles.length) {
-//     currentActive = circles.length;
-//   }
-//   update();
-// });
-
-// prev.addEventListener("click", () => {
-//   currentActive--;
-//   if (currentActive < 1) {
-//     currentActive = 1;
-//   }
-//   update();
-// });
-// function update() {
-//   circles.forEach((circle, index) => {
-//     if (index < currentActive) {
-//       circle.classList.add("active");
-//     } else {
-//       circle.classList.remove("active");
-//     }
-//   });
-
-//   //中間的線變換顏色
-//   const actives = document.querySelectorAll(".active");
-//   progress.style.width =
-//     ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
-//   //當前進度２／５＝４０％
-//   //填色範圍(2-1)/(5-1)=25%
-//   if (currentActive === 1) {
-//     prev.disabled = true;
-//   } else if (currentActive === circles.length) {
-//     next.disabled = true;
-//   } else {
-//     prev.disabled = false;
-//     next.disabled = false;
-//   }
-// }
-
-// const App = () => {
-//   const [currentStep, setCurrentStep] = useState(1);
-
-//   const handleNext = () => {
-//     setCurrentStep((prevStep) => prevStep + 1);
-//   };
-
-//   const handlePrev = () => {
-//     setCurrentStep((prevStep) => prevStep - 1);
-//   };
-
-//   return (
-//     <div className="p-8">
-//       <ProgressBar
-//         currentStep={currentStep}
-//         onNext={handleNext}
-//         onPrev={handlePrev}
-//       />
-
-//       {/* Render your components based on the currentStep */}
-//       {currentStep === 1 && <div>Component 1 Content</div>}
-//       {currentStep === 2 && <div>Component 2 Content</div>}
-//       {currentStep === 3 && <div>Component 3 Content</div>}
-//       {currentStep === 4 && <div>Component 4 Content</div>}
-//     </div>
-//   );
-// };
-
-// export default App;
