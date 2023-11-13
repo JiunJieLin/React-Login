@@ -1,62 +1,80 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ContactDetails from "./components/ContactDetails";
 import OurService from "./components/OurServices";
 import Budget from "./components/Budget";
 import Summary from "./components/Summary";
 import ProgressBar from "./components/ProgressBar";
 import Buttons from "./components/Buttons";
+
 const App = () => {
-  const [currentActive, setCurrentActive] = useState(1);
-  const [formIsValid, setFormIsValid] = useState(true);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [step1Contact, setStep1Contact] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+  });
 
-  const handleOnAdd = () => {
-    setCurrentActive((prev) => prev + 1);
-    // console.log("handleOnAdd called");
-    // const isValid =
-    //   enteredEmail.includes("@") && enteredPhone.trim().length === 10;
-    // setFormIsValid(isValid);
-    // if (isValid) {
-    //   setCurrentActive((prev) => prev + 1);
-    // }
+  const isFormValid = () => {
+    const { email, phone, name, company } = step1Contact;
+
+    // 驗證 Name
+    const isValidName =
+      name.split(" ").length === 2 &&
+      name.split(" ").every((part) => part[0] === part[0].toUpperCase());
+
+    // 驗證 Email
+    const isValidEmail = email.includes("@");
+
+    // 驗證 Phone
+    const isValidPhone = phone.length === 10 && phone.startsWith("09");
+
+    // 驗證 Company
+    const isValidCompany = company.trim() !== "";
+
+    return isValidName && isValidEmail && isValidPhone && isValidCompany;
   };
 
-  const handleDelete = () => {
-    setCurrentActive((prev) => prev - 1);
+  const handleNextStep = () => {
+    if (currentStep === 1 && !isFormValid()) {
+      console.log("Form validation failed");
+      return;
+    }
+    console.log("Form validation passed");
+    setCurrentStep((prev) => prev + 1);
   };
 
-  const handleLogin = (
-    enteredName,
-    enteredEmail,
-    enteredPhone,
-    enteredCompany
-  ) => {
-    // setCurrentActive((prev) => prev + 1);
-    const personInfo = {
-      name: enteredName,
-      email: enteredEmail,
-      phone: enteredPhone,
-      company: enteredCompany,
-    };
-    console.log(personInfo);
+  const handlePrevStep = () => {
+    setCurrentStep((prev) => prev - 1);
   };
+
+  const updateStep1Contact = (field, value) => {
+    setStep1Contact((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   return (
-    <div className="flex w-full items-center justify-center">
-      <div className="b-[1px] m-auto flex flex-col items-center justify-between gap-[31px]">
-        <div className="rounded-md pb-[80px]  pl-[46px] pr-[56px] shadow-md">
-          <ProgressBar currentStep={currentActive} />
-          <div className="h-[1px] w-[596px] bg-[#D9DBE9]"></div>
-          {currentActive === 1 && <ContactDetails onLogin={handleLogin} />}
-          {currentActive === 2 && <OurService />}
-          {currentActive === 3 && <Budget />}
-          {currentActive === 4 && <Summary />}
-        </div>
-        <Buttons
-          currentStep={currentActive}
-          onAdd={handleOnAdd}
-          onDelete={handleDelete}
-          formIsValid={formIsValid}
-        />
+    <div className="flex w-full flex-col items-center justify-center gap-8 p-20">
+      <ProgressBar currentStep={currentStep} />
+      <hr className="h-2 w-full font-bold text-primary" />
+      <div className="flex flex-col items-center justify-center gap-8">
+        {currentStep === 1 && (
+          <ContactDetails
+            contactData={step1Contact}
+            updateStep1Contact={updateStep1Contact}
+          />
+        )}
+        {currentStep === 2 && <OurService />}
+        {currentStep === 3 && <Budget />}
+        {currentStep === 4 && <Summary />}
       </div>
+      <Buttons
+        currentStep={currentStep}
+        onNext={handleNextStep}
+        onPrev={handlePrevStep}
+      />
     </div>
   );
 };
