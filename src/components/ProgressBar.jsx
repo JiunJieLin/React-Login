@@ -4,7 +4,7 @@ const ProgressBar = ({ currentStep }) => {
   const steps = [1, 2, 3, 4];
 
   return (
-    <div className="flex items-center justify-center gap-[134px] py-[33px] ">
+    <div className="flex items-center justify-center gap-10">
       {steps.map((step) => (
         <div
           key={step}
