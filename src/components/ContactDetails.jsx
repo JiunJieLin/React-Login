@@ -13,7 +13,7 @@ import companyIcon from "../public/pictures/company.png";
  * @param {function} props.updateStep1Contact - 用來更新聯絡人資料的函数
  */
 const ContactDetails = ({ contactData, updateStep1Contact }) => {
-  const handleInputChange = (field) => (e) => {
+  const handleInputChange = (field, e) => {
     console.log(field, e.target.value);
     updateStep1Contact(field, e.target.value);
   };
@@ -62,7 +62,7 @@ const ContactDetails = ({ contactData, updateStep1Contact }) => {
             id={field.id}
             labelText={field.labelText}
             value={field.value}
-            onChange={handleInputChange(field.id)}
+            onChange={(e) => handleInputChange(field.id, e)}
             placeholder={field.placeholder}
             icon={field.icon}
           />
