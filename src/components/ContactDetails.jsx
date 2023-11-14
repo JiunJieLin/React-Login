@@ -1,30 +1,44 @@
-import phone from "../public/pictures/phone.png";
-import head from "../public/pictures/head.png";
-import company from "../public/pictures/company.png";
-import mail from "../public/pictures/mail.png";
-import { useState } from "react";
+import phoneIcon from "../public/pictures/phone.png";
+import headIcon from "../public/pictures/head.png";
+import companyIcon from "../public/pictures/company.png";
+import mailIcon from "../public/pictures/mail.png";
 
-const ContactDetails = ({ onLogin }) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPhone, setEnteredPhone] = useState("");
-  const [enteredCompany, setEnteredCompany] = useState("");
+import InputField from "./InputField";
 
-  const nameChangeHandler = (event) => {
-    setEnteredName(event.target.value);
-  };
-  const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
-  };
-  const phoneChangeHandler = (event) => {
-    setEnteredPhone(event.target.value);
-  };
-  const companyChangeHandler = (event) => {
-    setEnteredCompany(event.target.value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onLogin(enteredName, enteredEmail, enteredPhone, enteredCompany);
+const ContactDetails = ({ contactData, updateStep1Contact }) => {
+  const inputFields = [
+    {
+      id: "name",
+      labelText: "Name",
+      value: contactData.name,
+      placeholder: "John Carter",
+      icon: headIcon,
+    },
+    {
+      id: "email",
+      labelText: "Email",
+      value: contactData.email,
+      placeholder: "email@example.com",
+      icon: mailIcon,
+    },
+    {
+      id: "phone",
+      labelText: "Phone Number",
+      value: contactData.phone,
+      placeholder: "0923444444",
+      icon: phoneIcon,
+    },
+    {
+      id: "company",
+      labelText: "Company",
+      value: contactData.company,
+      placeholder: "Company Name",
+      icon: companyIcon,
+    },
+  ];
+  const handleInputChange = (type, value) => {
+    console.log(type, value);
+    updateStep1Contact(type, value);
   };
   return (
     <div className=" mt-[64px]">
@@ -32,79 +46,19 @@ const ContactDetails = ({ onLogin }) => {
       <p className="mb-[39px]">
         Lorem ipsum dolor sit amet consectetur adipisicing.
       </p>
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-[44px]">
-          <div className="flex flex-col gap-[18px]">
-            <label htmlFor="Name">Name</label>
-            <div className="w=[284px] relative flex h-[66px] items-center rounded-full border-[1px] border-solid border-[#EFF0F6] pl-[20px] shadow-md">
-              <input
-                value={enteredName}
-                type="text"
-                placeholder="John Carter"
-                className="focus:outline-none"
-                onChange={nameChangeHandler}
-                required
-              />
-              <img
-                src={head}
-                className="absolute right-[22px] top-[20px]"
-              ></img>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-[18px]">
-            <label htmlFor="Email">Email</label>
-            <div className="w=[284px] relative flex h-[66px] items-center rounded-full border-[1px] border-solid border-[#EFF0F6] pl-[20px] shadow-md">
-              <input
-                type="text"
-                value={enteredEmail}
-                placeholder="Email address"
-                className="focus:outline-none"
-                onChange={emailChangeHandler}
-                required
-              />
-              <img
-                src={mail}
-                className="absolute right-[24px] top-[25px]"
-              ></img>
-            </div>
-          </div>
-          <div className="flex flex-col gap-[18px]">
-            <label htmlFor="Phone Number">Phone Number</label>
-            <div className="w=[284px] relative flex h-[66px] items-center rounded-full border-[1px] border-solid border-[#EFF0F6] pl-[20px] shadow-md">
-              <input
-                type="number"
-                value={enteredPhone}
-                placeholder="(123)456-7890"
-                className="focus:outline-none"
-                onChange={phoneChangeHandler}
-                required
-              />
-              <img
-                src={phone}
-                className="absolute right-[20px] top-[20px]"
-              ></img>
-            </div>
-          </div>
-          <div className="flex flex-col gap-[18px]">
-            <label htmlFor="Company">Company</label>
-            <div className="w=[284px] relative flex h-[66px] items-center rounded-full border-[1px] border-solid border-[#EFF0F6] pl-[20px] shadow-md">
-              <input
-                type="text"
-                value={enteredCompany}
-                placeholder="Company name"
-                className="focus:outline-none"
-                onChange={companyChangeHandler}
-                required
-              />
-              <img
-                src={company}
-                className="absolute right-[25px] top-[17px]"
-              ></img>
-            </div>
-          </div>
-        </div>
-      </form>
+      <div className="grid w-full grid-cols-2 gap-4">
+        {inputFields.map((field) => (
+          <InputField
+            key={field.id}
+            id={field.id}
+            labelText={field.labelText}
+            value={field.value}
+            onChange={(e) => handleInputChange(field.id, e.target.value)}
+            placeholder={field.placeholder}
+            icon={field.icon}
+          />
+        ))}
+      </div>
     </div>
   );
 };

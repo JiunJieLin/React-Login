@@ -13,29 +13,33 @@ const App = () => {
     phone: "",
     company: "",
   });
-
-  const handleOnAdd = () => {
-    setCurrentActive((prev) => prev + 1);
+  const isFormValid = () => {
+    const { name, email, phone, company } = step1Contact;
+    const isValidName =
+      name.split(" ").length === 2 &&
+      name.split(" ").every((part) => part[0] === part[0].toUpperCase());
+    const isValidEmail = email.includes("@");
+    const isValidPhone = phone.length === 10 && phone.startsWith("09");
+    const isValidCompany = company.trim() !== "";
+    return isValidName && isValidEmail && isValidPhone && isValidCompany;
   };
 
-  const handleDelete = () => {
+  const handleNextStep = () => {
+    if (currentActive === 1 && !isFormValid()) {
+      console.log("Form validation failed");
+      return;
+    } else {
+      console.log("Form validation pased");
+      setCurrentActive((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
     setCurrentActive((prev) => prev - 1);
   };
 
-  const handleLogin = (
-    enteredName,
-    enteredEmail,
-    enteredPhone,
-    enteredCompany
-  ) => {
-    // setCurrentActive((prev) => prev + 1);
-    const personInfo = {
-      name: enteredName,
-      email: enteredEmail,
-      phone: enteredPhone,
-      company: enteredCompany,
-    };
-    console.log(personInfo);
+  const updateStep1Contact = (type, value) => {
+    setStep1Contact((prev) => ({ ...prev, [type]: value }));
   };
   return (
     <div className="flex w-full items-center justify-center">
@@ -43,15 +47,20 @@ const App = () => {
         <div className="rounded-md pb-[80px]  pl-[46px] pr-[56px] shadow-md">
           <ProgressBar currentStep={currentActive} />
           <div className="h-[1px] w-[596px] bg-[#D9DBE9]"></div>
-          {currentActive === 1 && <ContactDetails onLogin={handleLogin} />}
+          {currentActive === 1 && (
+            <ContactDetails
+              contactData={step1Contact}
+              updateStep1Contact={updateStep1Contact}
+            />
+          )}
           {currentActive === 2 && <OurService />}
           {currentActive === 3 && <Budget />}
           {currentActive === 4 && <Summary />}
         </div>
         <Buttons
           currentStep={currentActive}
-          onAdd={handleOnAdd}
-          onDelete={handleDelete}
+          onNext={handleNextStep}
+          onPrev={handlePrevStep}
         />
       </div>
     </div>
