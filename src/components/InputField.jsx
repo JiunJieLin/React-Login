@@ -18,3 +18,12 @@ const InputField = ({ id, labelText, value, onChange, placeholder, icon }) => {
 };
 
 export default InputField;
+// {
+//   icon && (
+//     <img
+//       src={icon}
+//       className="absolute right-[22px] top-[20px]"
+//       alt={`${labelText} Icon`}
+//     />
+//   );
+// }
