@@ -7,7 +7,7 @@ import ProgressBar from "./components/ProgressBar";
 import Buttons from "./components/Buttons";
 const App = () => {
   const [currentActive, setCurrentActive] = useState(1);
-  cosnt[(selectedAmount, setSelectedAmount)] = useState(false);
+  const [selectAmount, setSelectAmount] = useState(false);
   const [step1Contact, setStep1Contact] = useState({
     name: "",
     email: "",
@@ -34,7 +34,7 @@ const App = () => {
       console.log("Form validation pased");
       setCurrentActive((prev) => prev + 1);
     }
-    if (currentActive === 3 && selectedAmount) {
+    if (currentActive === 3 && selectAmount) {
       setCurrentActive((prev) => prev + 1);
     }
   };
@@ -59,7 +59,7 @@ const App = () => {
             />
           )}
           {currentActive === 2 && <OurService />}
-          {currentActive === 3 && <Budget selectBudget={selectedAmount} />}
+          {currentActive === 3 && <Budget selectAmount={selectAmount} />}
           {currentActive === 4 && <Summary />}
         </div>
         <Buttons
