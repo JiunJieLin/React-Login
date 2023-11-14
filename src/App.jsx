@@ -7,17 +7,15 @@ import ProgressBar from "./components/ProgressBar";
 import Buttons from "./components/Buttons";
 const App = () => {
   const [currentActive, setCurrentActive] = useState(1);
-  const [formIsValid, setFormIsValid] = useState(true);
+  const [step1Contact, setStep1Contact] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+  });
 
   const handleOnAdd = () => {
     setCurrentActive((prev) => prev + 1);
-    // console.log("handleOnAdd called");
-    // const isValid =
-    //   enteredEmail.includes("@") && enteredPhone.trim().length === 10;
-    // setFormIsValid(isValid);
-    // if (isValid) {
-    //   setCurrentActive((prev) => prev + 1);
-    // }
   };
 
   const handleDelete = () => {
@@ -54,7 +52,6 @@ const App = () => {
           currentStep={currentActive}
           onAdd={handleOnAdd}
           onDelete={handleDelete}
-          formIsValid={formIsValid}
         />
       </div>
     </div>
