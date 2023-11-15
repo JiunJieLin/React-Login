@@ -3,20 +3,23 @@ import unSelectedCircle from "../public/pictures/unselectcircle.png";
 import { useState } from "react";
 import classNames from "classnames";
 
-const Budget = ({ selectAmount }) => {
+const Budget = ({ setSelectBudgetState, selectBudgetState }) => {
   const budgets = [
     "5.000 - 10.000",
     "10.000 - 20.000",
     "20.000 - 50.000",
     "50.000 +",
   ];
-  const [selectBudget, setSelectBudget] = useState(budgets[0]);
+  const [selectBudget, setSelectBudget] = useState("");
 
   const handleSelect = (index) => {
-    setSelectBudget(budgets[index]);
-    selectAmount = budgets[index];
-    console.log(selectAmount);
+    const selectedBudget = budgets[index];
+    console.log(selectedBudget);
+    setSelectBudget(selectedBudget);
+    setSelectBudgetState(true);
+    console.log(selectBudgetState);
   };
+
   return (
     <div className=" mt-[64px]">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">
@@ -43,7 +46,7 @@ const Budget = ({ selectAmount }) => {
                 }
                 alt=""
               />
-              <p>{budget}</p>
+              <p>${budget}</p>
             </div>
           </button>
         ))}
