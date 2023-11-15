@@ -3,7 +3,11 @@ import unSelectedCircle from "../public/pictures/unselectcircle.png";
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 
-const Budget = ({ setSelectBudgetState, selectBudgetState }) => {
+const Budget = ({
+  setSelectBudgetState,
+  selectBudgetState,
+  setStep3Contact,
+}) => {
   const budgets = [
     "5.000 - 10.000",
     "10.000 - 20.000",
@@ -16,6 +20,7 @@ const Budget = ({ setSelectBudgetState, selectBudgetState }) => {
     const selectedBudget = budgets[index];
     setSelectBudget(selectedBudget);
     console.log(selectBudget);
+    setStep3Contact(selectedBudget);
     setSelectBudgetState(true);
   };
   useEffect(() => {

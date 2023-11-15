@@ -1,4 +1,4 @@
-const Summary = () => {
+const Summary = ({ step1Contact, step2Contact, step3Contact }) => {
   return (
     <div className=" mt-[64px]">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">Summary</h1>
@@ -7,12 +7,12 @@ const Summary = () => {
       </p>
       <div className="flex flex-col items-center border-2">
         <div>
-          <p>Name:</p>
-          <p>Phone:</p>
-          <p>Email:</p>
-          <p>Company:</p>
-          <p>Our Service:</p>
-          <p>Budget:</p>
+          <p>Name:{step1Contact.name}</p>
+          <p>Phone:{step1Contact.phone}</p>
+          <p>Email:{step1Contact.email}</p>
+          <p>Company:{step1Contact.company}</p>
+          <p>Our Service:{step2Contact}</p>
+          <p>Budget:${step3Contact}</p>
         </div>
 
         <button className="rounded-full bg-primary px-[40px] py-[20px] text-white">

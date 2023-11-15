@@ -5,7 +5,11 @@ import settingIcon from "../public/pictures/Setting.png";
 import classNames from "classnames";
 import { useState, useEffect } from "react";
 
-const OurService = ({ selectCardState, setSelectCardState }) => {
+const OurService = ({
+  selectCardState,
+  setSelectCardState,
+  setStep2Contact,
+}) => {
   const cards = [
     {
       img: developmentIcon,
@@ -28,6 +32,7 @@ const OurService = ({ selectCardState, setSelectCardState }) => {
   const handleCardSelect = (index) => {
     const selectedCardText = cards[index].text;
     setSelectCard(selectedCardText);
+    setStep2Contact(selectedCardText);
     setSelectCardState(true);
   };
   useEffect(() => {

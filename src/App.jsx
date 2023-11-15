@@ -5,6 +5,7 @@ import Budget from "./components/Budget";
 import Summary from "./components/Summary";
 import ProgressBar from "./components/ProgressBar";
 import Buttons from "./components/Buttons";
+
 const App = () => {
   const [currentActive, setCurrentActive] = useState(1);
   const [selectBudgetState, setSelectBudgetState] = useState(false);
@@ -15,7 +16,8 @@ const App = () => {
     phone: "",
     company: "",
   });
-
+  const [step2Contact, setStep2Contact] = useState("");
+  const [step3Contact, setStep3Contact] = useState("");
   const isFormValid = () => {
     const { name, email, phone, company } = step1Contact;
     const isValidName =
@@ -64,15 +66,23 @@ const App = () => {
             <OurService
               setSelectCardState={setSelectCardState}
               selectCardState={selectCardState}
+              setStep2Contact={setStep2Contact}
             />
           )}
           {currentActive === 3 && (
             <Budget
               setSelectBudgetState={setSelectBudgetState}
               selectBudgetState={selectBudgetState}
+              setStep3Contact={setStep3Contact}
             />
           )}
-          {currentActive === 4 && <Summary />}
+          {currentActive === 4 && (
+            <Summary
+              step1Contact={step1Contact}
+              step2Contact={step2Contact}
+              step3Contact={step3Contact}
+            />
+          )}
         </div>
         <Buttons
           currentStep={currentActive}
