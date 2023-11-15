@@ -1,8 +1,42 @@
-import development from "../public/pictures/development.png";
-import web from "../public/pictures/web.png";
-import marketing from "../public/pictures/marketing.png";
-import setting from "../public/pictures/Setting.png";
-const OurService = () => {
+import developmentIcon from "../public/pictures/development.png";
+import webIcon from "../public/pictures/web.png";
+import marketingIcon from "../public/pictures/marketing.png";
+import settingIcon from "../public/pictures/Setting.png";
+import classNames from "classnames";
+import { useState, useEffect } from "react";
+
+const OurService = ({ selectCardState, setSelectCardState }) => {
+  const cards = [
+    {
+      img: developmentIcon,
+      text: "Development",
+    },
+    {
+      img: webIcon,
+      text: "Web Design",
+    },
+    {
+      img: marketingIcon,
+      text: "Marketing",
+    },
+    {
+      img: settingIcon,
+      text: "Other",
+    },
+  ];
+  const [selectCard, setSelectCard] = useState("");
+  const handleCardSelect = (index) => {
+    const selectedCardText = cards[index].text;
+    setSelectCard(selectedCardText);
+    setSelectCardState(true);
+  };
+  useEffect(() => {
+    console.log(selectCardState);
+  }, [selectCardState]);
+
+  useEffect(() => {
+    console.log(selectCard);
+  }, [selectCard]);
   return (
     <div className=" mt-[64px]">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">Our services</h1>
@@ -10,30 +44,21 @@ const OurService = () => {
         Lorem ipsum dolor sit amet consectetur adipisicing.
       </p>
       <div className="grid grid-cols-2 gap-[44px]">
-        <button className="py-[24px]border-2 flex h-[115px] w-[284px] items-center  gap-[12px] rounded-2xl border-[1px] pl-[26px]">
-          <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
-            <img src={development} alt="" />
-          </div>
-          <p>Development</p>
-        </button>
-        <button className="py-[24px]border-2 flex h-[115px] w-[284px] items-center  gap-[12px] rounded-2xl border-[1px] pl-[26px]">
-          <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
-            <img src={web} alt="" />
-          </div>
-          <p>Web Design</p>
-        </button>
-        <button className="py-[24px]border-2 flex h-[115px] w-[284px] items-center  gap-[12px] rounded-2xl border-[1px] pl-[26px]">
-          <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
-            <img src={marketing} alt="" />
-          </div>
-          <p>Marketing</p>
-        </button>
-        <button className="py-[24px]border-2 flex h-[115px] w-[284px] items-center  gap-[12px] rounded-2xl border-[1px] pl-[26px]">
-          <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
-            <img src={setting} alt="" />
-          </div>
-          <p>Other</p>
-        </button>
+        {cards.map((card, index) => (
+          <button
+            key={card.text}
+            onClick={() => handleCardSelect(index)}
+            className={classNames(
+              "py-[24px]border-2 flex h-[115px] w-[284px] items-center  gap-[12px] rounded-2xl border-[1px] pl-[26px]",
+              { "border-primary": selectCard === card.text }
+            )}
+          >
+            <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
+              <img src={card.img} alt="" />
+            </div>
+            <p>{card.text}</p>
+          </button>
+        ))}
       </div>
     </div>
   );

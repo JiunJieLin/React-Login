@@ -8,6 +8,7 @@ import Buttons from "./components/Buttons";
 const App = () => {
   const [currentActive, setCurrentActive] = useState(1);
   const [selectBudgetState, setSelectBudgetState] = useState(false);
+  const [selectCardState, setSelectCardState] = useState(false);
   const [step1Contact, setStep1Contact] = useState({
     name: "",
     email: "",
@@ -32,7 +33,7 @@ const App = () => {
       return;
     } else if (currentActive === 1 && isFormValid()) {
       setCurrentActive((prev) => prev + 1);
-    } else if (currentActive === 2) {
+    } else if (currentActive === 2 && selectCardState) {
       setCurrentActive((prev) => prev + 1);
     } else if (currentActive === 3 && selectBudgetState) {
       setCurrentActive((prev) => prev + 1);
@@ -59,7 +60,12 @@ const App = () => {
               updateStep1Contact={updateStep1Contact}
             />
           )}
-          {currentActive === 2 && <OurService />}
+          {currentActive === 2 && (
+            <OurService
+              setSelectCardState={setSelectCardState}
+              selectCardState={selectCardState}
+            />
+          )}
           {currentActive === 3 && (
             <Budget
               setSelectBudgetState={setSelectBudgetState}
