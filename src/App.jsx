@@ -30,14 +30,14 @@ const App = () => {
     if (currentActive === 1 && !isFormValid()) {
       console.log("Form validation failed");
       return;
-    } else {
-      console.log("Form validation pased");
+    } else if (currentActive === 1 && isFormValid()) {
       setCurrentActive((prev) => prev + 1);
-    }
-    if (currentActive === 3 && selectBudgetState) {
+    } else if (currentActive === 2) {
       setCurrentActive((prev) => prev + 1);
+    } else if (currentActive === 3 && selectBudgetState) {
+      setCurrentActive((prev) => prev + 1);
+      console.log(selectBudgetState);
     }
-    console.log(selectBudgetState);
   };
 
   const handlePrevStep = () => {
