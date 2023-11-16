@@ -65,14 +65,12 @@ const App = () => {
           {currentActive === 2 && (
             <OurService
               setSelectCardState={setSelectCardState}
-              selectCardState={selectCardState}
               setStep2Contact={setStep2Contact}
             />
           )}
           {currentActive === 3 && (
             <Budget
               setSelectBudgetState={setSelectBudgetState}
-              selectBudgetState={selectBudgetState}
               setStep3Contact={setStep3Contact}
             />
           )}

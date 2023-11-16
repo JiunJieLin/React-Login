@@ -5,11 +5,7 @@ import settingIcon from "../public/pictures/Setting.png";
 import classNames from "classnames";
 import { useState, useEffect } from "react";
 
-const OurService = ({
-  selectCardState,
-  setSelectCardState,
-  setStep2Contact,
-}) => {
+const OurService = ({ setSelectCardState, setStep2Contact }) => {
   const cards = [
     {
       img: developmentIcon,
@@ -35,13 +31,7 @@ const OurService = ({
     setStep2Contact(selectedCardText);
     setSelectCardState(true);
   };
-  useEffect(() => {
-    console.log(selectCardState);
-  }, [selectCardState]);
 
-  useEffect(() => {
-    console.log(selectCard);
-  }, [selectCard]);
   return (
     <div className=" mt-[64px]">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">Our services</h1>
@@ -70,3 +60,10 @@ const OurService = ({
 };
 
 export default OurService;
+// useEffect(() => {
+//   console.log(selectCardState);
+// }, [selectCardState]);
+
+// useEffect(() => {
+//   console.log(selectCard);
+// }, [selectCard]);
