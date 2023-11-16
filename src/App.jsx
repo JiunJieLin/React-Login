@@ -37,9 +37,10 @@ const App = () => {
       setCurrentActive((prev) => prev + 1);
     } else if (currentActive === 2 && selectCardState) {
       setCurrentActive((prev) => prev + 1);
+      setSelectCardState(false);
     } else if (currentActive === 3 && selectBudgetState) {
       setCurrentActive((prev) => prev + 1);
-      console.log(selectBudgetState);
+      setSelectBudgetState(false);
     }
   };
 
