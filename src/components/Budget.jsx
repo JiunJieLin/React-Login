@@ -1,11 +1,11 @@
 import selectedCircle from "../public/pictures/selectedcircle.png";
 import unSelectedCircle from "../public/pictures/unselectcircle.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 
 const Budget = ({
   setSelectBudgetState,
-
+  prevSelectedBudget,
   setStep3Contact,
 }) => {
   const budgets = [
@@ -14,7 +14,7 @@ const Budget = ({
     "20.000 - 50.000",
     "50.000 +",
   ];
-  const [selectBudget, setSelectBudget] = useState("");
+  const [selectBudget, setSelectBudget] = useState(prevSelectedBudget || "");
 
   const handleSelect = (index) => {
     const selectedBudget = budgets[index];
@@ -22,7 +22,10 @@ const Budget = ({
     setStep3Contact(selectedBudget);
     setSelectBudgetState(true);
   };
-
+  useEffect(() => {
+    console.log(selectBudget);
+    setSelectBudgetState(true);
+  }, [selectBudget]);
   return (
     <div className=" mt-[64px]">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">

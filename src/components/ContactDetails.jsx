@@ -2,7 +2,6 @@ import phoneIcon from "../public/pictures/phone.png";
 import headIcon from "../public/pictures/head.png";
 import companyIcon from "../public/pictures/company.png";
 import mailIcon from "../public/pictures/mail.png";
-
 import InputField from "./InputField";
 
 const ContactDetails = ({ contactData, updateStep1Contact }) => {

@@ -17,7 +17,9 @@ const App = () => {
     company: "",
   });
   const [step2Contact, setStep2Contact] = useState("");
+  const [prevSelectedCard, setPrevSelectedCard] = useState("");
   const [step3Contact, setStep3Contact] = useState("");
+  const [prevSelectedBudget, setPrevSelectedBudget] = useState("");
   const isFormValid = () => {
     const { name, email, phone, company } = step1Contact;
     const isValidName =
@@ -46,6 +48,8 @@ const App = () => {
 
   const handlePrevStep = () => {
     setCurrentActive((prev) => prev - 1);
+    setPrevSelectedCard(step2Contact);
+    setPrevSelectedBudget(step3Contact);
   };
 
   const updateStep1Contact = (type, value) => {
@@ -67,12 +71,14 @@ const App = () => {
             <OurService
               setSelectCardState={setSelectCardState}
               setStep2Contact={setStep2Contact}
+              prevSelectedCard={prevSelectedCard}
             />
           )}
           {currentActive === 3 && (
             <Budget
               setSelectBudgetState={setSelectBudgetState}
               setStep3Contact={setStep3Contact}
+              prevSelectedBudget={prevSelectedBudget}
             />
           )}
           {currentActive === 4 && (
