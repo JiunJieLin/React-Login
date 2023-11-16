@@ -20,6 +20,8 @@ const App = () => {
   const [prevSelectedCard, setPrevSelectedCard] = useState("");
   const [step3Contact, setStep3Contact] = useState("");
   const [prevSelectedBudget, setPrevSelectedBudget] = useState("");
+  const [formError, setFormError] = useState(false);
+
   const isFormValid = () => {
     const { name, email, phone, company } = step1Contact;
     const isValidName =
@@ -28,21 +30,30 @@ const App = () => {
     const isValidEmail = email.includes("@");
     const isValidPhone = phone.length === 10 && phone.startsWith("09");
     const isValidCompany = company.trim() !== "";
+
     return isValidName && isValidEmail && isValidPhone && isValidCompany;
   };
 
   const handleNextStep = () => {
     if (currentActive === 1 && !isFormValid()) {
       console.log("Form validation failed");
+      setFormError(true);
       return;
     } else if (currentActive === 1 && isFormValid()) {
       setCurrentActive((prev) => prev + 1);
+      setFormError(false);
+    } else if (currentActive === 2 && !selectCardState) {
+      setFormError(true);
     } else if (currentActive === 2 && selectCardState) {
       setCurrentActive((prev) => prev + 1);
       setSelectCardState(false);
+      setFormError(false);
+    } else if (currentActive === 3 && !selectBudgetState) {
+      setFormError(true);
     } else if (currentActive === 3 && selectBudgetState) {
       setCurrentActive((prev) => prev + 1);
       setSelectBudgetState(false);
+      setFormError(false);
     }
   };
 
@@ -50,6 +61,7 @@ const App = () => {
     setCurrentActive((prev) => prev - 1);
     setPrevSelectedCard(step2Contact);
     setPrevSelectedBudget(step3Contact);
+    setFormError(false);
   };
 
   const updateStep1Contact = (type, value) => {
@@ -58,7 +70,7 @@ const App = () => {
   return (
     <div className="flex w-full items-center justify-center">
       <div className="b-[1px] m-auto flex flex-col items-center justify-between gap-[31px]">
-        <div className="rounded-md pb-[80px]  pl-[46px] pr-[56px] shadow-md">
+        <div className="relative rounded-md  pb-[80px] pl-[46px] pr-[56px] shadow-md">
           <ProgressBar currentStep={currentActive} />
           <div className="h-[1px] w-[596px] bg-[#D9DBE9]"></div>
           {currentActive === 1 && (
@@ -95,6 +107,11 @@ const App = () => {
           onPrev={handlePrevStep}
         />
       </div>
+      {formError && (
+        <span className="text-md absolute bottom-[290px] right-[200px] text-red-500 ">
+          Plaese enter the form correctly!
+        </span>
+      )}
     </div>
   );
 };

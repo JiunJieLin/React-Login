@@ -23,8 +23,9 @@ const Budget = ({
     setSelectBudgetState(true);
   };
   useEffect(() => {
-    console.log(selectBudget);
-    setSelectBudgetState(true);
+    if (selectBudget !== "") {
+      setSelectBudgetState(true);
+    }
   }, [selectBudget]);
   return (
     <div className=" mt-[64px]">

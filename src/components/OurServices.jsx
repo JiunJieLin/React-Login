@@ -36,9 +36,11 @@ const OurService = ({
     setSelectCardState(true);
   };
   useEffect(() => {
-    console.log(selectCard);
-    setSelectCardState(true);
+    if (selectCard !== "") {
+      setSelectCardState(true);
+    }
   }, [selectCard]);
+
   return (
     <div className=" mt-[64px]">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">Our services</h1>
@@ -67,10 +69,3 @@ const OurService = ({
 };
 
 export default OurService;
-// useEffect(() => {
-//   console.log(selectCardState);
-// }, [selectCardState]);
-
-// useEffect(() => {
-//   console.log(selectCard);
-// }, [selectCard]);
