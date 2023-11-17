@@ -21,7 +21,7 @@ const ProgressBar = ({ currentStep }) => {
           </div>
           {index !== steps.length - 1 && (
             <div
-              className={`h-[6px] w-[98px] rounded-md border-2 ${
+              className={`h-[6px] w-[98px] rounded-md border-2 sm:w-[48px] ${
                 step <= currentStep
                   ? "border-primary bg-primary"
                   : "border-[#EFF0F6] bg-[#EFF0F6]"

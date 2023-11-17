@@ -60,12 +60,12 @@ const ContactDetails = ({ contactData, updateStep1Contact }) => {
   };
 
   return (
-    <div className=" mt-[64px]">
+    <div className=" mt-[64px]  flex-col items-center sm:flex">
       <h1 className="mb-[7.5px] text-[24px] font-bold ">Contact details</h1>
-      <p className="mb-[39px]">
+      <p className="mb-[39px] ">
         Lorem ipsum dolor sit amet consectetur adipisicing.
       </p>
-      <div className="grid w-full grid-cols-2 gap-4">
+      <div className="grid w-full grid-cols-2 flex-col items-center gap-4 sm:flex sm:gap-[32px]">
         {inputFields.map((field) => (
           <div key={field.id} className="relative">
             <InputField

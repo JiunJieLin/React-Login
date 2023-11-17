@@ -69,10 +69,10 @@ const App = () => {
   };
   return (
     <div className="flex w-full items-center justify-center">
-      <div className="b-[1px] m-auto flex flex-col items-center justify-between gap-[31px]">
-        <div className="relative rounded-md  pb-[80px] pl-[46px] pr-[56px] shadow-md">
+      <div className=" b-[1px] m-auto flex flex-col items-center justify-between gap-[31px]">
+        <div className="relative flex min-h-[100px] flex-col rounded-md pb-[80px] pl-[46px] pr-[56px] shadow-md sm:items-center ">
           <ProgressBar currentStep={currentActive} />
-          <div className="h-[1px] w-[596px] bg-[#D9DBE9]"></div>
+          <div className=" h-[1px]  w-[596px] bg-[#D9DBE9]  sm:w-[250px]"></div>
           {currentActive === 1 && (
             <ContactDetails
               contactData={step1Contact}
@@ -100,6 +100,11 @@ const App = () => {
               step3Contact={step3Contact}
             />
           )}
+          {formError && (
+            <span className="text-md absolute bottom-2  right-4 text-red-500 ">
+              Please enter the form correctly!
+            </span>
+          )}
         </div>
         <Buttons
           currentStep={currentActive}
@@ -107,11 +112,6 @@ const App = () => {
           onPrev={handlePrevStep}
         />
       </div>
-      {formError && (
-        <span className="text-md absolute bottom-[290px] right-[200px] text-red-500 ">
-          Plaese enter the form correctly!
-        </span>
-      )}
     </div>
   );
 };

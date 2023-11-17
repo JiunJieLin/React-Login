@@ -47,7 +47,7 @@ const OurService = ({
       <p className="mb-[39px]">
         Lorem ipsum dolor sit amet consectetur adipisicing.
       </p>
-      <div className="grid grid-cols-2 gap-[44px]">
+      <div className="grid grid-cols-2 flex-col items-center gap-[20px] sm:flex ">
         {cards.map((card, index) => (
           <button
             key={card.text}
