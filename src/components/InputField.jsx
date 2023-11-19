@@ -1,4 +1,12 @@
-const InputField = ({ id, labelText, value, onChange, placeholder, icon }) => {
+const InputField = ({
+  id,
+  labelText,
+  value,
+  onChange,
+  placeholder,
+  icon,
+  onClick,
+}) => {
   return (
     <div className="flex flex-col gap-[18px]">
       <label htmlFor={id}>{labelText}</label>
@@ -10,6 +18,7 @@ const InputField = ({ id, labelText, value, onChange, placeholder, icon }) => {
           placeholder={placeholder}
           className="focus:outline-none"
           onChange={onChange}
+          onClick={onClick}
         />
         <img src={icon} className="absolute right-[22px] top-[20px]"></img>
       </div>

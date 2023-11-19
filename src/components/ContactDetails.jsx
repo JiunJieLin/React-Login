@@ -4,11 +4,17 @@ import companyIcon from "../public/pictures/company.png";
 import mailIcon from "../public/pictures/mail.png";
 import InputField from "./InputField";
 import { useState } from "react";
+
 const ContactDetails = ({ contactData, updateStep1Contact }) => {
   const [isNameValid, setIsNameValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPhoneValid, setIsPhoneValid] = useState(true);
   const [isCompanyValid, setIsCompanyValid] = useState(true);
+  const [showNameError, setShowNameError] = useState(false);
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [showPhoneError, setShowPhoneError] = useState(false);
+  const [showCompanyError, setShowCompanyError] = useState(false);
+  const [currentError, setCurrentError] = useState("");
   const inputFields = [
     {
       id: "name",
@@ -39,23 +45,62 @@ const ContactDetails = ({ contactData, updateStep1Contact }) => {
       icon: companyIcon,
     },
   ];
+  const handleInputClick = (type) => {
+    if (type === "name") {
+      setShowNameError(true);
+    }
+    if (type === "email") {
+      setShowEmailError(true);
+    }
+    if (type === "phone") {
+      setShowPhoneError(true);
+    }
+    if (type === "company") {
+      setShowCompanyError(true);
+    }
+  };
   const handleInputChange = (type, value) => {
     console.log(type, value);
     updateStep1Contact(type, value);
+
     if (type === "name") {
-      const nameValid =
-        value.split(" ").length === 2 &&
-        value.split(" ").every((part) => part[0] === part[0].toUpperCase());
-      setIsNameValid(nameValid);
+      if (value.trim() === "") {
+        setShowNameError(true);
+      } else {
+        const nameValid =
+          value.split(" ").length === 2 &&
+          value
+            .split(" ")
+            .every(
+              (part) => part.length > 0 && part[0] === part[0].toUpperCase()
+            );
+        setIsNameValid(nameValid);
+        setShowNameError(!nameValid);
+      }
     } else if (type === "email") {
-      const emailValid = value.includes("@");
-      setIsEmailValid(emailValid);
+      if (value.trim() === "") {
+        setShowEmailError(true);
+      } else {
+        const emailValid = value.includes("@");
+        setIsEmailValid(emailValid);
+        setShowEmailError(!emailValid);
+      }
     } else if (type === "phone") {
-      const phoneValid = value.length === 10 && value.startsWith("09");
-      setIsPhoneValid(phoneValid);
+      if (value.trim() === "") {
+        setShowPhoneError(true);
+      } else {
+        const phoneValid = value.length === 10 && value.startsWith("09");
+        setIsPhoneValid(phoneValid);
+        setShowPhoneError(!phoneValid);
+      }
     } else if (type === "company") {
-      const companyValid = value.trim() !== "";
-      setIsCompanyValid(companyValid);
+      if (value.trim() === "") {
+        setShowCompanyError(true);
+      } else {
+        const companyValid = value.trim() !== "";
+        setIsCompanyValid(companyValid);
+        setShowCompanyError(!companyValid);
+      }
     }
   };
 
@@ -75,25 +120,42 @@ const ContactDetails = ({ contactData, updateStep1Contact }) => {
               onChange={(e) => handleInputChange(field.id, e.target.value)}
               placeholder={field.placeholder}
               icon={field.icon}
+              onClick={() => handleInputClick(field.id)}
             />
-            {field.id === "name" && !isNameValid && (
+            {field.id === "name" && showNameError && (
               <span className="absolute right-0 top-full text-sm text-red-500">
-                Enter a valid name.
+                {contactData.name.length === 0
+                  ? "名稱是必填項目"
+                  : !isNameValid
+                  ? "名稱格式不正確（需要兩個文字，每個文字第一個字大寫並用空格隔開)"
+                  : ""}
               </span>
             )}
-            {field.id === "email" && !isEmailValid && (
+            {field.id === "email" && showEmailError && (
               <span className="absolute right-0 top-full text-sm text-red-500">
-                Incorrect email.
+                {contactData.email.length === 0
+                  ? "電子郵件是必填項目"
+                  : !isEmailValid
+                  ? "請輸入有效的電子郵件"
+                  : ""}
               </span>
             )}
-            {field.id === "phone" && !isPhoneValid && (
+            {field.id === "phone" && showPhoneError && (
               <span className="absolute right-0 top-full text-sm text-red-500">
-                Incorrect phone.
+                {contactData.phone.length === 0
+                  ? "電話號碼是必填項目"
+                  : !isPhoneValid
+                  ? "電話號碼格式不正確(須以09開頭共10位數字)"
+                  : ""}
               </span>
             )}
-            {field.id === "company" && !isCompanyValid && (
+            {field.id === "company" && showCompanyError && (
               <span className="absolute right-0 top-full text-sm text-red-500">
-                Cannot be empty.
+                {contactData.company.length === 0
+                  ? "公司名稱是必填項目"
+                  : !isCompanyValid
+                  ? "請輸入正確的公司名稱"
+                  : ""}
               </span>
             )}
           </div>

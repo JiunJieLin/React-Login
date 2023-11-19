@@ -37,11 +37,10 @@ const App = () => {
   const handleNextStep = () => {
     if (currentActive === 1 && !isFormValid()) {
       console.log("Form validation failed");
-      setFormError(true);
+
       return;
     } else if (currentActive === 1 && isFormValid()) {
       setCurrentActive((prev) => prev + 1);
-      setFormError(false);
     } else if (currentActive === 2 && !selectCardState) {
       setFormError(true);
     } else if (currentActive === 2 && selectCardState) {
@@ -100,11 +99,13 @@ const App = () => {
               step3Contact={step3Contact}
             />
           )}
-          {formError && (
-            <span className="text-md absolute bottom-2  right-4 text-red-500 ">
-              Please enter the form correctly!
-            </span>
-          )}
+          {formError &&
+            selectCardState === false &&
+            selectBudgetState === false && (
+              <span className="text-md absolute bottom-2  right-4 text-red-500 ">
+                請選取一個項目!
+              </span>
+            )}
         </div>
         <Buttons
           currentStep={currentActive}
