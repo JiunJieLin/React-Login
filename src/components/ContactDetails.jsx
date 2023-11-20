@@ -14,7 +14,7 @@ const ContactDetails = ({ contactData, updateStep1Contact }) => {
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPhoneError, setShowPhoneError] = useState(false);
   const [showCompanyError, setShowCompanyError] = useState(false);
-  const [currentError, setCurrentError] = useState("");
+
   const inputFields = [
     {
       id: "name",

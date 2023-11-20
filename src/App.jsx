@@ -69,7 +69,7 @@ const App = () => {
   return (
     <div className="flex w-full items-center justify-center">
       <div className=" b-[1px] m-auto flex flex-col items-center justify-between gap-[31px]">
-        <div className="relative flex min-h-[100px] flex-col rounded-md pb-[80px] pl-[46px] pr-[56px] shadow-md sm:items-center ">
+        <div className="relative flex min-h-[100px] flex-col rounded-md pb-[80px] pl-[46px] pr-[56px] shadow-md sm:items-center sm:pl-[26px] sm:pr-[36px]">
           <ProgressBar currentStep={currentActive} />
           <div className=" h-[1px]  w-[596px] bg-[#D9DBE9]  sm:w-[250px]"></div>
           {currentActive === 1 && (
