@@ -57,7 +57,7 @@ const OurService = ({
               { "border-primary": selectCard === card.text }
             )}
           >
-            <div className=" h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
+            <div className="flex h-[67px] w-[67px] items-center justify-center rounded-full  bg-[#E4E1ff]">
               <img src={card.img} alt="" />
             </div>
             <p>{card.text}</p>
